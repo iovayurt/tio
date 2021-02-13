@@ -1,0 +1,16 @@
+long start = System.nanoTime();
+        long sum = 0;
+
+        for (int i = 0; i < 100000; ++i)
+        {
+            // Primary loop
+            for (int c = 0; c < arraySize; ++c)
+            {
+                if (data[c] >= 128)
+                    sum += data[c];
+            }
+        }
+
+        System.out.println((System.nanoTime() - start) / 1000000000.0);
+        System.out.println("sum = " + sum);
+    }
