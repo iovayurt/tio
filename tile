@@ -1,0 +1,7 @@
+public override void GetTileData(Vector3Int location, ITilemap tileMap, ref TileData tileData)
+    {
+        if (m_AnimatedSprites != null && m_AnimatedSprites.Length > 0)
+        {
+            tileData.sprite = m_AnimatedSprites[m_AnimatedSprites.Length - 1];
+        }
+    }
