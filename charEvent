@@ -1,0 +1,11 @@
+public class Example : MonoBehaviour
+{
+    void OnGUI()
+    {
+        Event e = Event.current;
+        if (e.isKey)
+        {
+            Debug.Log("Detected character: " + e.character);
+        }
+    }
+}
