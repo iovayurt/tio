@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class MinimalTest : MonoBehaviour
+{
+    public Mesh mesh;
+
+    private MeshCollider collider;
+
+    private void OnEnable()
+    {
+        // Bake this Mesh to use later.
+        Physics.BakeMesh(mesh.GetInstanceID(), false);
+    }
+
+    public void FixedUpdate()
+    {
+        // If the collider wasn't yet created - create it now.
+        if (collider == null)
+        {
+            // No mesh baking will happen here because the mesh was pre-baked, making instantiation faster.
+            collider = new GameObject().AddComponent<MeshCollider>();
+            collider.sharedMesh = mesh;
+        }
+    }
+}
