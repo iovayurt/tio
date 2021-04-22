@@ -1,0 +1,9 @@
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    void Start()
+    {
+        GetComponent<TextMesh>().alignment = TextAlignment.Left;
+    }
+}
