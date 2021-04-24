@@ -1,0 +1,10 @@
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // Objects we touch, move them to position (0, 0, 0)
+        hit.gameObject.transform.position = Vector3.zero;
+    }
+}
