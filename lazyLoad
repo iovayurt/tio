@@ -1,0 +1,30 @@
+using UnityEditor.AssetImporters;
+using UnityEngine;
+
+[ScriptedImporter(1, "foo")]
+public class FooImporter : ScriptedImporter
+{
+    public LazyLoadReference<Material> m_DefaultMaterial;
+
+    public override void OnImportAsset(AssetImportContext ctx)
+    {
+        // At this point, 'm_DefaultMaterial' may refer to a material that has yet to be loaded into memory
+
+        Material mat;
+        if (!m_DefaultMaterial.isSet) // 'isSet' Does not load the referenced material even if not in memory.
+        {
+            mat = new Material(Shader.Find("Transparent/Diffuse"));
+            ctx.AddObjectToAsset("mat", mat);
+        }
+        else
+        {
+            mat = m_DefaultMaterial.asset; // Will load referenced material if it is not already in memory.
+        }
+
+        var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        obj.transform.GetComponent<MeshRenderer>().material = mat;
+
+        ctx.AddObjectToAsset("main", obj);
+        ctx.SetMainObject(obj);
+    }
+}
