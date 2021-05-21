@@ -1,0 +1,18 @@
+using UnityEngine;
+using UnityEngine.SocialPlatforms;
+
+public class ExampleClass : MonoBehaviour
+{
+    void Example()
+    {
+        IAchievement achievement = Social.CreateAchievement();
+        achievement.id = "Achievement01";
+        achievement.percentCompleted = 100.0;
+        achievement.ReportProgress(result => {
+            if (result)
+                Debug.Log("Successfully reported progress");
+            else
+                Debug.Log("Failed to report progress");
+        });
+    }
+}
