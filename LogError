@@ -1,0 +1,13 @@
+using UnityEngine;
+using System.Collections;
+
+public class MyGameClass : MonoBehaviour
+{
+    private Transform transform;
+
+    void MyGameMethod()
+    {
+        if (transform == null)
+            Debug.LogError("memberVariable must be set to point to a Transform.", transform);
+    }
+}
