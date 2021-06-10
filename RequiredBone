@@ -1,0 +1,15 @@
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    void Start()
+    {
+        string[] boneName = HumanTrait.BoneName;
+        for (int i = 0; i < HumanTrait.BoneCount; ++i)
+        {
+            if (HumanTrait.RequiredBone(i))
+                Debug.Log(boneName[i]);
+        }
+    }
+}
