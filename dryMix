@@ -1,0 +1,15 @@
+using UnityEngine;
+
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioEchoFilter))]
+public class Example : MonoBehaviour
+{
+    // Listen to only Echo (not the original audio source)
+    // Set the wet mix to 0 and you will disable the echo.
+
+    void Start()
+    {
+        GetComponent<AudioEchoFilter>().wetMix = 1.0f;
+        GetComponent<AudioEchoFilter>().dryMix = 0.0f;
+    }
+}
