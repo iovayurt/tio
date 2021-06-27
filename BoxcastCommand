@@ -1,0 +1,35 @@
+using Unity.Collections;
+using Unity.Jobs;
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    private void BoxcastExample()
+    {
+        // Perform a single boxcast using BoxcastCommand and wait for it to complete
+        // Set up the command and result buffers
+        var results = new NativeArray<RaycastHit>(1, Allocator.Temp);
+        var commands = new NativeArray<BoxcastCommand>(1, Allocator.Temp);
+
+        // Set the data of the first command
+        Vector3 center = Vector3.zero;
+        Vector2 halfExtents = Vector3.one * 0.5f;
+        Quaternion orientation = Quaternion.identity;
+        Vector3 direction = Vector3.forward;
+
+        commands[0] = new BoxcastCommand(center, halfExtents, orientation, direction);
+
+        // Schedule the batch of boxcasts
+        var handle = BoxcastCommand.ScheduleBatch(commands, results, 1,  default(JobHandle));
+
+        // Wait for the batch processing job to complete
+        handle.Complete();
+
+        // Copy the result. If batchedHit.collider is null there was no hit
+        RaycastHit batchedHit = results[0];
+
+        // Dispose the buffers
+        results.Dispose();
+        commands.Dispose();
+    }
+}
