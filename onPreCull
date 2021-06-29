@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public class CameraCallbackExample : MonoBehaviour
+{
+    // Add your callback to the delegate's invocation list
+    void Start()
+    {
+        Camera.onPreCull += OnPreCullCallback;
+    }
+
+    // Unity calls the methods in this delegate's invocation list before rendering any camera
+    void OnPreCullCallback(Camera cam)
+    {
+        Debug.Log("Camera callback: Camera name is " + cam.name);
+
+        // Unity calls this for every active Camera.
+        // If you're only interested in a particular Camera,
+        // check whether the Camera is the one you're interested in
+        if (cam == Camera.main)
+        {
+            // Put your custom code here
+        }
+    }
+
+    // Remove your callback from the delegate's invocation list
+    void OnDestroy()
+    {
+        Camera.onPreCull -= OnPreCullCallback;
+    }
+}
