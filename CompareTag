@@ -1,0 +1,15 @@
+// Immediate death trigger.
+// Destroys any colliders that enter the trigger, if they are tagged player.
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
+}
