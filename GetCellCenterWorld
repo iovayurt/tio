@@ -1,0 +1,12 @@
+// Snap the GameObject to parent Grid center of cell
+using UnityEngine;
+
+public class ExampleClass : MonoBehaviour
+{
+    void Start()
+    {
+        Grid grid = transform.parent.GetComponent<Grid>();
+        Vector3Int cellPosition = grid.WorldToCell(transform.position);
+        transform.position = grid.GetCellCenterWorld(cellPosition);
+    }
+}
