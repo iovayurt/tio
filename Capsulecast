@@ -1,0 +1,35 @@
+using Unity.Collections;
+using Unity.Jobs;
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    private void CapsulecastExample()
+    {
+        // Perform a single capsule cast using CapsulecastCommand and wait for it to complete
+        // Set up the command and result buffers
+        var results = new NativeArray<RaycastHit>(1, Allocator.Temp);
+        var commands = new NativeArray<CapsulecastCommand>(1, Allocator.Temp);
+
+        // Set the data of the first command
+        Vector3 point1 = Vector3.up * -0.5f;
+        Vector3 point2 = Vector3.up * 0.5f;
+        Vector3 direction = Vector3.forward;
+        float radius = 0.5f;
+
+        commands[0] = new CapsulecastCommand(point1, point2, radius, direction);
+
+        // Schedule the batch of capsulecasts
+        var handle = CapsulecastCommand.ScheduleBatch(commands, results, 1, default(JobHandle));
+
+        // Wait for the batch processing job to complete
+        handle.Complete();
+
+        // Copy the result. If batchedHit.collider is null, there was no hit
+        RaycastHit batchedHit = results[0];
+
+        // Dispose the buffers
+        results.Dispose();
+        commands.Dispose();
+    }
+}
