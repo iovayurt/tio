@@ -1,0 +1,9 @@
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    void Start()
+    {
+        print("Version of the runtime: " + Application.unityVersion);
+    }
+}
